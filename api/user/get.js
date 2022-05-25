@@ -21,7 +21,11 @@ const getAppUserDetails = async (request, response) => {
         error: 'Not found'
       })
     } else {
+      const verification = await verifyJsonWebToken(cookie.jwt)
+      response.status(200).send(userDetails)
+
       // cookie
+      /* 
       const cookie = await request.cookies
       if (cookie.jwt != undefined) {
         const verification = await verifyJsonWebToken(cookie.jwt)
@@ -30,7 +34,8 @@ const getAppUserDetails = async (request, response) => {
         response.send({
           error: 'Cookie not found'
         })
-      }
+      } 
+      */
     }
   } catch (error) {
     response.status(400).send(error)
